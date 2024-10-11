@@ -7,7 +7,6 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -16,9 +15,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 import java.util.logging.Level;
 // import io.github.bonigarcia.wdm.WebDriverManager;
 import demo.wrappers.Wrappers;
@@ -65,11 +62,13 @@ public class TestCases {
                 "https://docs.google.com/forms/d/e/1FAIpQLSep9LTMntH5YqIXa5nkiPKSs283kdwitBBhXWyZdAS-e4CxBQ/viewform?pli=1");
         Thread.sleep(3000);
         
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement nameField = wait
+                .until(ExpectedConditions.elementToBeClickable(By.xpath(("(//input[@class='whsOnd zHQkBf'])[1]"))));
 
-        WebElement nameField = driver.findElement(By.xpath("(//input[@class='whsOnd zHQkBf'])[1]"));
+        // WebElement nameField = driver.findElement(By.xpath("(//input[@class='whsOnd zHQkBf'])[1]"));
         
-        // WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        // wait.until(ExpectedConditions.visibilityOf(nameField));
+     
 
 
 
@@ -78,7 +77,14 @@ public class TestCases {
         System.out.println("wait1");
         Wrappers.enterText(nameField, "Crio Learner");
 
-        WebElement PracticeFieldTextArea = driver.findElement(By.xpath("//textarea[@class='KHxj8b tL9Q4c']"));
+        // WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        
+        WebElement PracticeFieldTextArea = wait
+        .until(ExpectedConditions.elementToBeClickable(By.xpath(("//textarea[@class='KHxj8b tL9Q4c']"))));
+        
+        // WebElement PracticeFieldTextArea = driver.findElement(By.xpath("//textarea[@class='KHxj8b tL9Q4c']"));
+        
+        
         String PracticeFieldText ="I want to be the best QA Engineer!";
         
         String epchtimeString = Wrappers.getEpochTimeAsString();
@@ -100,7 +106,13 @@ public class TestCases {
         Wrappers.checkBox(driver, "Selenium");
         Wrappers.checkBox(driver, "TestNG");
 
-        WebElement dropDown = driver.findElement(By.xpath("(//div[@class='e2CuFe eU809d'])[1]"));
+        WebElement dropDown = wait
+        .until(ExpectedConditions.elementToBeClickable(By.xpath(("(//div[@class='e2CuFe eU809d'])[1]"))));
+        
+
+        // WebElement dropDown = driver.findElement(By.xpath("(//div[@class='e2CuFe eU809d'])[1]"));
+
+
         dropDown.click();
         Thread.sleep(2000);
 
